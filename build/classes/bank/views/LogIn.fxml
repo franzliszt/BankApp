@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane id="borderpane" prefHeight="700.0" prefWidth="900.0" styleClass="root" 
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="bank.controller.LogInController">
+    <stylesheets>
+        <URL value="@/bank/graphics/login.css"/>
+    </stylesheets>
+    <padding>
+        <Insets top="10" right="10" left="10" bottom="10"/>
+    </padding>
+    
+    <top>
+        <HBox styleClass="header" alignment="CENTER" prefHeight="100" >
+            <Text text="Bank App Log In"/>
+        </HBox>
+    </top>
+    
+    <center>
+        <HBox alignment="CENTER">
+            <GridPane id="gridpane">
+                <Text id="loginText" text="Log In to bank app" GridPane.columnIndex="0"
+                    GridPane.rowIndex="0"/>
+                <Label text="User name:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextField promptText="User name..." fx:id="username"
+                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <Label text="Password" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <HBox spacing="10" alignment="bottom_right"
+                        GridPane.columnIndex="1" GridPane.rowIndex="4">
+                    <Button text="Log In" onAction="#logIn"/>
+                </HBox>
+            </GridPane>
+        </HBox>
+    </center>
+    
+</BorderPane>
