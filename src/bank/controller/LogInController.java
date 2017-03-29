@@ -5,20 +5,20 @@
  */
 package bank.controller;
 
-import bank.domains.Customer;
+import bank.model.domains.Customer;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import bank.domains.Person;
-import bank.entities.Account_E;
-import bank.entities.City_E;
-import bank.entities.Customer_E;
-import bank.entities.Employee_E;
-import bank.entities.Persons_E;
-import bank.utils.HibernateUtil;
+import bank.model.domains.Person;
+import bank.model.entities.Account_E;
+import bank.model.entities.City_E;
+import bank.model.entities.Customer_E;
+import bank.model.entities.Employee_E;
+import bank.model.entities.Persons_E;
+import bank.model.utils.HibernateUtil;
 import java.util.Date;
 import org.hibernate.Session;
 
@@ -37,7 +37,7 @@ public class LogInController implements Initializable {
     @FXML
     private void logIn() {
         // hent og sjekk om data er gyldig for brukeren
-        Person p = new Customer("Donald", "Duck", "Adresse", "3471", "Slemmestad");
+        Person p = new Customer("Donald", "Duck", "Adresse", "8006", "Bodø");
         System.out.println("XXXXXXXXXXXXXXXXXXX" + p.getFirstname());
         
         Session session = HibernateUtil.getSessionFactory().openSession();

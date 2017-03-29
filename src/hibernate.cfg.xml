@@ -47,10 +47,10 @@ Contributor(s):
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
     
-    <mapping class="bank.entities.Persons_E"/>
-    <mapping class="bank.entities.Account_E"/>
-    <mapping class="bank.entities.Employee_E"/>
-    <mapping class="bank.entities.Customer_E"/>
-    <mapping class="bank.entities.City_E"/>
+    <mapping class="bank.model.entities.Persons_E"/>
+    <mapping class="bank.model.entities.Account_E"/>
+    <mapping class="bank.model.entities.Employee_E"/>
+    <mapping class="bank.model.entities.Customer_E"/>
+    <mapping class="bank.model.entities.City_E"/>
   </session-factory>
 </hibernate-configuration>

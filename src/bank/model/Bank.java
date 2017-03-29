@@ -6,9 +6,9 @@
 package bank.model;
 
 
-import bank.domains.Account;
-import bank.domains.Customer;
-import bank.domains.Person;
+import bank.model.domains.Account;
+import bank.model.domains.Customer;
+import bank.model.domains.Person;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;

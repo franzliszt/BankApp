@@ -3,17 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bank.entities;
+package bank.model.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -22,14 +19,19 @@ import org.hibernate.annotations.GenericGenerator;
  * @author Stian
  */
 @Entity
-@Table(name = "Customers")
-public class Customer_E implements Serializable {
+@Table(name = "Employees")
+public class Employee_E implements Serializable {
     
     private int id;
-    private int customerId;
-    private Set<Account_E> accounts = new HashSet<>(0);
+    private int employeeId;
+    private double hourlySalary;
 
-    public Customer_E() {}
+    public Employee_E() {}
+    
+    public Employee_E(int empId, double salary) {
+        employeeId = empId;
+        hourlySalary = salary;
+    }
 
     @Id
     @GeneratedValue(generator = "increment", strategy = IDENTITY)
@@ -43,22 +45,22 @@ public class Customer_E implements Serializable {
         this.id = id;
     }
 
-    @OneToMany(mappedBy = "owner")
-    public Set<Account_E> getAccounts() {
-        return accounts;
+    @Column(name = "EmployeeID")
+    public int getEmployeeId() {
+        return employeeId;
     }
 
-    public void setAccounts(Set<Account_E> accounts) {
-        this.accounts = accounts;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
-    
-    @Column(name = "CustomerID")
-    public int getCustomerId() {
-        return customerId;
+
+    @Column(name = "Salary")
+    public double getHourlySalary() {
+        return hourlySalary;
     }
-    
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+
+    public void setHourlySalary(double hourlySalary) {
+        this.hourlySalary = hourlySalary;
     }
     
 }
