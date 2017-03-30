@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane fx:id="root" id="borderpane" prefHeight="900.0" prefWidth="900.0" styleClass="mainFxmlClass" 
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="bank.controller.CustomerController">
+    <padding>
+        <Insets top="10" right="10" left="10" bottom="10"/>
+    </padding>
+    
+    <top>
+        <HBox alignment="CENTER">
+            <Button text="Betalinger" fx:id="payments" onAction="#test"/>
+        </HBox>
+    </top>
+    
+    <stylesheets>
+        <URL value="@customerview.css"/>
+    </stylesheets>
+</BorderPane>
