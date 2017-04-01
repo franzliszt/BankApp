@@ -5,6 +5,7 @@
  */
 package bank.controller;
 
+import bank.model.domains.Person;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,11 +19,15 @@ import javafx.stage.Stage;
  */
 class Windows {
     
-    void openCustomer(Stage parent) throws IOException {
-        Stage customer = new Stage();
-        customer.initModality(Modality.NONE);
-        customer.initOwner(parent);
-        customer.setResizable(false);
+    private static Person customer; // Kunden som er logget inn
+    
+    void openCustomer(Stage parent, Person customer) throws IOException {
+        Windows.customer = customer;
+        
+        Stage customerStage = new Stage();
+        customerStage.initModality(Modality.NONE);
+        customerStage.initOwner(parent);
+        customerStage.setResizable(false);
         
         FXMLLoader loader;
         loader = new FXMLLoader(getClass().getResource("/bank/views/CustomerView.fxml"));
@@ -31,9 +36,10 @@ class Windows {
         
         BorderPane root = loader.load();
         CustomerController controller = loader.getController();
-        customer.setScene(new Scene(root, 900, 700));
-        customer.setTitle("KUNDE");
-        customer.showAndWait();
+        controller.setCustomer(customer);
+        customerStage.setScene(new Scene(root, 900, 700));
+        customerStage.setTitle("KUNDE");
+        customerStage.showAndWait();
         
         showParent(parent);
     }
@@ -44,5 +50,9 @@ class Windows {
     
     private void showParent(Stage parent) {
         parent.show();
+    }
+    
+    public static Person getLoggedInPerson() {
+        return customer;
     }
 }

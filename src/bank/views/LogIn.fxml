@@ -1,48 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
-<?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
 
-<BorderPane fx:id="root" id="borderpane" prefHeight="700.0" prefWidth="900.0" styleClass="root" 
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="bank.controller.LogInController">
-    <stylesheets>
-        <URL value="@/bank/views/graphics/login.css"/>
-    </stylesheets>
-    
+<BorderPane id="logInGrid" prefHeight="400.0" prefWidth="600.0" styleClass="loginRoot"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="bank.controller.MainViewController">
     <padding>
-        <Insets top="10" right="10" left="10" bottom="10"/>
+        <Insets top="25" right="25" bottom="10" left="25"/>
     </padding>
-    
     <top>
-        <HBox styleClass="header" alignment="CENTER" prefHeight="100" >
-            <Text text="Bank App Log In"/>
-        </HBox>
+        <Text text="Log in"/>
     </top>
-    
     <center>
-        
-        <HBox alignment="CENTER">
-            <GridPane id="gridpane">
-                
-                <Text id="loginText" text="Log In to bank app" GridPane.columnIndex="0"
-                    GridPane.rowIndex="0"/>
-                <Label text="User name:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                <TextField promptText="User name..." fx:id="username"
-                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                <Label text="Password" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                <HBox spacing="10" alignment="bottom_right"
-                        GridPane.columnIndex="1" GridPane.rowIndex="4">
-                    <Button fx:id="logInBtn" text="Log In" onAction="#logIn"/>
+        <HBox alignment="center">
+            <GridPane hgap="15.0" vgap="15.0">
+                <Text id="welcome-text" GridPane.columnIndex="0"
+                    GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+                <Label text="User Name:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextField promptText="User name..." GridPane.columnIndex="1"
+                    GridPane.rowIndex="1" fx:id="usernameLogIn"/>
+                <Label text="Password" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <PasswordField fx:id="passwordLogIn" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <HBox spacing="10" alignment="bottom_right" GridPane.columnIndex="1"
+                        GridPane.rowIndex="3">
+                    <Button text="Sign in" onAction="#handleSignInButton" 
+                        disable="${ usernameLogIn.text.empty || passwordLogIn.text.empty }" />
                 </HBox>
             </GridPane>
         </HBox>
     </center>
-    
 </BorderPane>

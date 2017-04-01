@@ -5,18 +5,21 @@
  */
 package bank.controller;
 
+import bank.model.domains.Person;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -25,9 +28,11 @@ import javafx.util.Duration;
  */
 public class CustomerController implements Initializable {
 
+    private Person customer;
     private Windows windows;
     @FXML private Button payments;
-    
+    @FXML private Button newAccountBtn;
+    @FXML private TabPane tabPane;
     
 
     @FXML
@@ -45,17 +50,23 @@ public class CustomerController implements Initializable {
             newStage.initModality(Modality.APPLICATION_MODAL);
             newStage.setTitle("New Stage");
             newStage.showAndWait();
-        } else 
+        } else {
             newStage.close();
+        }
     }
     
-    
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private void newAccount() {
+        
+    }   
+
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+    public void initialize(URL location, ResourceBundle resources) {
+        //tabPane.getTabs().add(new Tab("Tab 1"));
+    }
+
+    void setCustomer(Person customer) {
+       this.customer = customer;
+    }
     
 }

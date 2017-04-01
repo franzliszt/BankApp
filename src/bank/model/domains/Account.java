@@ -5,6 +5,7 @@
  */
 package bank.model.domains;
 
+import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -18,14 +19,10 @@ public class Account {
     private double currentAmount;
     private String accountNumber;
     private String accountName;
-    private Customer owner;
+    private Person owner;
     private Date date;
     
-    public Account() {}
-    
-    public Account(String accountNumber) {
-        this(accountNumber, "Ny Konto", 0, new Date());
-    }
+    public Account() { }
     
     public Account(String number, double initAmount) {
         this(number, "NY KONTO", initAmount, new Date());
@@ -70,11 +67,11 @@ public class Account {
         this.accountName = accountName;
     }
 
-    public Customer getOwner() {
+    public Person getOwner() {
         return owner;
     }
 
-    public void setOwner(Customer owner) {
+    public void setOwner(Person owner) {
         this.owner = owner;
     }
 

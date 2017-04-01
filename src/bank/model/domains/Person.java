@@ -17,16 +17,20 @@ public abstract class Person {
     private String address;
     private String zip;
     private String city;
+    private String username;
+    private String password;
 
     public Person() {}
     
     public Person(String firstname, String lastname, String address, 
-            String zip, String city) {
+            String zip, String city, String username, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.address = address;
         this.zip = zip;
         this.city = city;
+        this.username = username;
+        this.password = password;
     }
 
     public int getId() {

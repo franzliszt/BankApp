@@ -8,6 +8,8 @@ package bank.model.entities;
 import com.sun.istack.internal.NotNull;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +18,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,6 +31,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "Accounts")
 public class Account_E implements Serializable {
+    
     private int id;
     private double currentAmount;
     private String accountNumber;
@@ -51,8 +55,6 @@ public class Account_E implements Serializable {
         this.currentAmount = initAmount;
         this.date = date;
     }
-    
-
     
     @Id
     @GeneratedValue(generator = "increment", strategy = IDENTITY)
@@ -110,11 +112,5 @@ public class Account_E implements Serializable {
     
     public String getAccountName() {
         return accountName;
-    }
-    
-    @Override
-    public String toString() {
-        return String.format("%s, %.2f kroner, %s%n", 
-                getAccountNumber(), getCurrentAmount(), getAccountName());
     }
 }

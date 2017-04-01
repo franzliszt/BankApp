@@ -52,5 +52,6 @@ Contributor(s):
     <mapping class="bank.model.entities.Employee_E"/>
     <mapping class="bank.model.entities.Customer_E"/>
     <mapping class="bank.model.entities.City_E"/>
+    <mapping class="bank.model.entities.Payment_E"/>
   </session-factory>
 </hibernate-configuration>

@@ -7,20 +7,30 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.collections.*?>
 
 <BorderPane fx:id="root" id="borderpane" prefHeight="900.0" prefWidth="900.0" styleClass="mainFxmlClass" 
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="bank.controller.CustomerController">
     <padding>
-        <Insets top="10" right="10" left="10" bottom="10"/>
+        <Insets top="15" right="12" left="15" bottom="12"/>
     </padding>
     
     <top>
-        <HBox alignment="CENTER">
-            <Button text="Betalinger" fx:id="payments" onAction="#test"/>
+        <HBox spacing="10">
+            <TabPane fx:id="tabPane" maxWidth="-Infinity">
+                <tabs>
+                    <Tab text="New Account" closable="false">
+                        <fx:include source="NewAccount.fxml" />
+                    </Tab>
+                </tabs>
+            </TabPane>
         </HBox>
     </top>
     
+    
+    
     <stylesheets>
-        <URL value="@customerview.css"/>
+        <URL value="@bank/views/graphics/customerview.css"/>
     </stylesheets>
 </BorderPane>

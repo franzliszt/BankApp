@@ -6,6 +6,7 @@
 package bank.controller;
 
 
+import bank.model.DatabaseTransaction;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,19 +15,35 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
  *
  * @author Stian
  */
-public class LogInController implements Initializable {
+public class MainViewController implements Initializable {
 
+    private DatabaseTransaction db;
     private Windows window;
-    @FXML private Button logInBtn;
-    @FXML private TextField username;
+    
+    // For register view
+    @FXML private TextField firstnameField;
+    @FXML private Text invalidFirstname;
+    @FXML private TextField lastnameField;
+    @FXML private Text invalidLastname;
+    @FXML private TextField addressField;
+    @FXML private Text invalidAddress;
+    @FXML private TextField zipcodeField;
+    @FXML private Text invalidZipcode;
+    @FXML private TextField cityField;
+    @FXML private Text invalidCity;
+    @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
+    @FXML private Button registerButton;
+    
+    // For log in view
+    
     
     /**
      * Initializes the controller class.
@@ -35,17 +52,40 @@ public class LogInController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        db = new DatabaseTransaction();
         window = new Windows();
+    }
+    
+    @FXML
+    private void handleSignInButton() {
+        System.out.println("log in");
+    }
+    
+    @FXML
+    public void handleRegisterButton() {
+        String inputFirstName = firstnameField.getText();
+        String inputLastName = lastnameField.getText();
+        String inputAddress = addressField.getText();
+        String inputZipcode = zipcodeField.getText();
+        String inputCity = cityField.getText();
+        String inputUsername = usernameField.getText();
+        String inputPassword = passwordField.getText();
+        
+        //registerButton.disableProperty().bind(firstnameField.textProperty().isEmpty());
+        // hent ny kundes personalia
+        // lagre kunden i databasen
     }
     
     
     
     @FXML
     private void logIn() throws IOException {
-        window.openCustomer((Stage) logInBtn.getScene().getWindow());
+        //Person person = new Customer("Donald", "Duck", "Adresse", "8008", "Bodø");
+        //window.openCustomer((Stage) logInBtn.getScene().getWindow(), person);
         
         // hent og sjekk om data er gyldig for brukeren
-//        Person p = new Customer("Donald", "Duck", "Adresse", "8006", "Bodø");
+       
+       //db.registerCustomer(p);
 //        System.out.println("XXXXXXXXXXXXXXXXXXX" + p.getFirstname());
 //        
 //        Session session = HibernateUtil.getSessionFactory().openSession();
@@ -96,7 +136,7 @@ public class LogInController implements Initializable {
 //        session.close();    
     }
     
-        
+    
     
     
     private void formatDropdown() {

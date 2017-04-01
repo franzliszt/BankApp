@@ -18,13 +18,12 @@ public class Customer extends Person {
     private List<Account> myAccounts;
     
     public Customer() {
-        super();
         myAccounts = new ArrayList<>();
     }
     
     public Customer(String firstname, String lastname, String address, 
-            String zip, String city) {
-        super(firstname, lastname, address, zip, city);
+            String zip, String city, String username, String password) {
+        super(firstname, lastname, address, zip, city, username, password);
         myAccounts = new ArrayList<>(); // kan være et Map<Account, List<Payment>> HashMap<>()
     }
 

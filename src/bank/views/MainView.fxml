@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="root" id="borderpane" prefHeight="700.0" prefWidth="900.0" styleClass="root" 
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="bank.controller.MainViewController">
+    <stylesheets>
+        <URL value="@/bank/views/graphics/login.css"/>
+    </stylesheets>
+    
+    <padding>
+        <Insets top="10" right="10" left="10" bottom="10"/>
+    </padding>
+    
+    <top>
+        <HBox styleClass="header" alignment="CENTER" prefHeight="100" >
+            <Text text="Bank App Log In"/>
+        </HBox>
+    </top>
+    
+    <center>
+        
+        <HBox alignment="CENTER">
+            <TabPane fx:id="tabPane" maxWidth="-Infinity">
+                <tabs>
+                    <Tab text="Log In" closable="false">
+                        <fx:include source="LogIn.fxml" />
+                    </Tab>
+                    <Tab text="Register" closable="false">
+                        <fx:include source="Register.fxml" />
+                    </Tab>
+                </tabs>
+            </TabPane>
+        </HBox>
+    </center>
+    
+</BorderPane>
