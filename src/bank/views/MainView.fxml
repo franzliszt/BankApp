@@ -13,6 +13,8 @@
           xmlns:fx="http://javafx.com/fxml/1" fx:controller="bank.controller.MainViewController">
     <stylesheets>
         <URL value="@/bank/views/graphics/mainview.css"/>
+        <URL value="@/bank/views/graphics/loginview.css"/>
+        <URL value="@/bank/views/graphics/registerview.css"/>
     </stylesheets>
     
     <padding>
@@ -98,7 +100,7 @@
 
                             <HBox spacing="10" alignment="bottom_right" GridPane.columnIndex="1"
                                   GridPane.rowIndex="10">
-                                  <Button id="register" fx:id="registerButton" text="Register" onAction="#handleRegisterButton" 
+                                  <Button id="registerButton" fx:id="registerButton" text="Register" onAction="#handleRegisterButton" 
                                         disable="${firstnameField.text.empty || lastnameField.text.empty ||
                                             addressField.text.empty || zipcodeField.text.empty || 
                                             cityField.text.empty || usernameField.text.empty 

@@ -7,7 +7,7 @@ and open the template in the editor.
     Created on : Apr 1, 2017, 6:34:05 PM
     Author     : Stian
 */
-#register {
+#registerButton {
     -fx-background-color: #000000, 
         linear-gradient(#7ebcea, #2f4b8f),
         linear-gradient(#426ab7, #263e75),
