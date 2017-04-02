@@ -10,6 +10,7 @@ import bank.model.domains.Customer;
 import bank.model.domains.Payment;
 import bank.model.domains.Person;
 import bank.model.entities.City_E;
+import bank.model.entities.Customer_E;
 import bank.model.entities.Persons_E;
 import bank.model.utils.HibernateUtil;
 import java.util.List;
@@ -40,45 +41,33 @@ public class DatabaseTransaction {
         // sjekk om kunden finnes, hvis ja rollback og informer viewt
     }
     
-    public void registerCustomer(Person customer) {
+    public void registerCustomer(Person person) {
         try {
-            
-            // sjekk om kunden finnes
-            
-            Persons_E foundPerson = searchPerson(new Persons_E(customer.getFirstname(), 
-                    customer.getFirstname(), customer.getAddress()));
-            if (foundPerson == null) {
-                // lagre personen og sjekk postnummer 
-                foundPerson = new Persons_E();
-                foundPerson.setFirstname(customer.getFirstname());
-                foundPerson.setLastname(customer.getLastname());
-                foundPerson.setAddress(customer.getAddress());
-                session.save(foundPerson);
-            }
-            
-            
-            
-            
-            Persons_E cust = new Persons_E();
-            cust.setFirstname(customer.getFirstname());
-            cust.setLastname(customer.getLastname());
-            cust.setAddress(customer.getAddress());
-            
-            
             session = HibernateUtil.getSessionFactory().openSession();
             trx = session.beginTransaction();
             
-            // sjekk om postnr finnes
+            
             City_E city = new City_E();
-            city.setCity(customer.getCity());
-            city.setZip(customer.getZip());
+            city.setZip(person.getZip());
+            city.setCity(person.getCity());
             session.save(city);
+
+            Persons_E foundPerson = new Persons_E();
+            foundPerson.setFirstname(person.getFirstname());
+            foundPerson.setLastname(person.getLastname());
+            foundPerson.setAddress(person.getAddress());
+            foundPerson.setUsername(person.getUsername());
+            foundPerson.setPassword(person.getPassword());
+            foundPerson.setOwner(city);
+            city.getPeople().add(foundPerson);
+            session.save(foundPerson);
             
-            cust.setOwner(city);
-            city.getPeople().add(cust);
+            Customer_E customer = new Customer_E();
+            customer.setCustomerId(foundPerson.getId());
+            session.save(customer);
             
-            session.save(cust);
             trx.commit();
+            
             getAll().forEach(p -> {
                 System.out.println(p.getFirstname());
             });
@@ -97,6 +86,15 @@ public class DatabaseTransaction {
         for (Persons_E p : list) {
             if (p.equals(person))
                 return p;
+        }
+        return null;
+    }
+    
+    private City_E searchZip(String zip) {
+        List<City_E> list = session.createCriteria(City_E.class).list();
+        for (City_E c : list) {
+            if (c.getZip().equals(zip))
+                return c;
         }
         return null;
     }

@@ -29,6 +29,8 @@ public class Persons_E implements Serializable {
     private String firstname;
     private String lastname;
     private String address;
+    private String username;
+    private String password;
     private City_E owner;
     
     public Persons_E() {}
@@ -87,4 +89,23 @@ public class Persons_E implements Serializable {
     public City_E getOwner() {
         return owner;
     }
+
+    @Column(name = "Username")
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Column(name = "Password")
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
 }

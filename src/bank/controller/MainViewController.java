@@ -7,13 +7,14 @@ package bank.controller;
 
 
 import bank.model.DatabaseTransaction;
+import bank.model.domains.Customer;
+import bank.model.domains.Person;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
@@ -22,7 +23,7 @@ import javafx.scene.text.Text;
  *
  * @author Stian
  */
-public class MainViewController implements Initializable {
+public class MainViewController {
 
     private DatabaseTransaction db;
     private Windows window;
@@ -43,17 +44,54 @@ public class MainViewController implements Initializable {
     @FXML private Button registerButton;
     
     // For log in view
+    @FXML private TextField usernameLogIn;
+    @FXML private PasswordField passwordLogIn;
     
+    // Tabs
+    @FXML private TabPane tabPane;
+    @FXML private Tab logInTab;
+    @FXML private Tab registerTab;
     
     /**
      * Initializes the controller class.
      * @param url
      * @param rb
      */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize() {
         db = new DatabaseTransaction();
-        window = new Windows();
+        window = new Windows(); 
+        tabPane.getSelectionModel().selectedIndexProperty().addListener((e, o, n) -> {
+            System.out.println("Changed to " + o);
+        });
+        
+        // Listener on tabs
+        tabPane.getSelectionModel().selectedItemProperty().addListener((e, o, n) -> {
+            if (n == logInTab)
+                clearLogInFields();
+            if (n == registerTab)
+                clearRegisterFields();
+        });
+    }
+    
+    /**
+     * Clears the input fields in the log in tab.
+     */
+    private void clearLogInFields() {
+        usernameLogIn.clear();
+        passwordLogIn.clear();
+    }
+    
+    /**
+     * Clears the input fields in the register tab.
+     */
+    private void clearRegisterFields() {
+        firstnameField.clear();
+        lastnameField.clear();
+        addressField.clear();
+        zipcodeField.clear();
+        cityField.clear();
+        usernameField.clear();
+        passwordField.clear();
     }
     
     @FXML
@@ -70,12 +108,11 @@ public class MainViewController implements Initializable {
         String inputCity = cityField.getText();
         String inputUsername = usernameField.getText();
         String inputPassword = passwordField.getText();
+        Person customer = new Customer(inputFirstName, inputLastName, 
+                inputAddress, inputZipcode, inputCity, inputUsername, inputPassword);
         
-        //registerButton.disableProperty().bind(firstnameField.textProperty().isEmpty());
-        // hent ny kundes personalia
-        // lagre kunden i databasen
+        db.registerCustomer(customer);
     }
-    
     
     
     @FXML
@@ -134,12 +171,5 @@ public class MainViewController implements Initializable {
 //        
 //        session.getTransaction().commit();
 //        session.close();    
-    }
-    
-    
-    
-    
-    private void formatDropdown() {
-        // hent fra db
     }
 }

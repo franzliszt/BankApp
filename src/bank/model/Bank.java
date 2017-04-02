@@ -10,6 +10,7 @@ import bank.model.domains.Payment;
 import bank.model.domains.Person;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -20,6 +21,11 @@ import java.util.TreeMap;
  */
 public class Bank implements BankTransaction {
 
+    private static final String[] ACCOUNT_TYPES = {
+        "BSU", "Sparekonto", "Lønnskonto", "Brukskonto",
+        "Høyrentekonto", "Aksjekonto"
+    };
+    
     private static int counter = 0; // number of customers
     private static final int INIT_AMOUNT = 0;
     private static final String ACCOUNT_NAME = "Brukskonto";
@@ -33,6 +39,14 @@ public class Bank implements BankTransaction {
         employees = new ArrayList<>();
         customers = new ArrayList<>();
         accounts = new TreeMap<>();
+    }
+    
+    /**
+     * Returns accounts that this bank has to offer.
+     * @return 
+     */
+    public static List<String> getAccountTypes() {
+        return Arrays.asList(ACCOUNT_TYPES);
     }
 
     @Override

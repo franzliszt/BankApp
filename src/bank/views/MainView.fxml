@@ -12,7 +12,7 @@
 <BorderPane fx:id="root" id="borderpane" prefHeight="700.0" prefWidth="900.0" styleClass="root" 
           xmlns:fx="http://javafx.com/fxml/1" fx:controller="bank.controller.MainViewController">
     <stylesheets>
-        <URL value="@/bank/views/graphics/login.css"/>
+        <URL value="@/bank/views/graphics/mainview.css"/>
     </stylesheets>
     
     <padding>
@@ -30,15 +30,84 @@
         <HBox alignment="CENTER">
             <TabPane fx:id="tabPane" maxWidth="-Infinity">
                 <tabs>
-                    <Tab text="Log In" closable="false">
-                        <fx:include source="LogIn.fxml" />
+                    <Tab fx:id="logInTab" text="Log In" closable="false">
+                        <!--
+                            <fx:include source="LogIn.fxml" /> 
+                            should have separtae controller for init of tab listener
+                        -->
+                        <GridPane hgap="15.0" vgap="15.0">
+                            <Text id="welcome-text" GridPane.columnIndex="0"
+                                GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+                            <Label text="User Name:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                            <TextField promptText="User name..." GridPane.columnIndex="1"
+                                GridPane.rowIndex="1" fx:id="usernameLogIn"/>
+                            <Label text="Password" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <PasswordField fx:id="passwordLogIn" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                            <HBox spacing="10" alignment="bottom_right" GridPane.columnIndex="1"
+                                    GridPane.rowIndex="3">
+                                <Button id="signInButton" text="Sign in" onAction="#handleSignInButton" 
+                                    disable="${ usernameLogIn.text.empty || passwordLogIn.text.empty }" />
+                            </HBox>
+                        </GridPane>
                     </Tab>
-                    <Tab text="Register" closable="false">
-                        <fx:include source="Register.fxml" />
+                    <!-- Register tab -->
+                    <Tab fx:id="registerTab" text="Register" closable="false">
+                        <!--
+                            <fx:include source="Register.fxml" /> 
+                            should have separtae controller for init of tab listener
+                        -->
+                        <GridPane hgap="15.0" vgap="15.0">
+                            <Text id="header" text="Register as customer" GridPane.columnIndex="0"
+                                GridPane.rowIndex="0" GridPane.columnSpan="2" />
+
+                            <Label id="firstNameLabel" text="First Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <TextField promptText="Your first name" fx:id="firstnameField" GridPane.columnIndex="1" 
+                                GridPane.rowIndex="1" />
+                            <Text fx:id="invalidFirstname" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+
+                            <Label id="lastNameLabel" text="Last Name:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <TextField promptText="Your last name" fx:id="lastnameField" GridPane.columnIndex="1"
+                                GridPane.rowIndex="2" />
+                            <Text fx:id="invalidLastname" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+
+                            <Label id="addressLabel" text="Address:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                            <TextField fx:id="addressField" promptText="Your address" GridPane.columnIndex="1"
+                                GridPane.rowIndex="3" />
+                            <Text fx:id="invalidAddress" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+
+                            <Label id="zipCodeLabel" text="Zip Code:" GridPane.columnIndex="0"
+                                GridPane.rowIndex="4" />
+                            <TextField fx:id="zipcodeField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                            <Text fx:id="invalidZipcode" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+
+                            <Label id="cityLabel" text="City:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                            <TextField fx:id="cityField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                            <Text fx:id="invalidCity" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+
+                            <Text id="credentials" text="Choose user name and password" GridPane.columnIndex="0"
+                                GridPane.rowIndex="7" GridPane.columnSpan="2" />
+
+                            <Label id="usernameLabel" text="User Name:" GridPane.columnIndex="0"
+                                GridPane.rowIndex="8" />
+                            <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+
+                            <Label id="passwordLabel" text="Password:" GridPane.columnIndex="0"
+                                GridPane.rowIndex="9" />
+                            <PasswordField id="password" fx:id="passwordField" GridPane.columnIndex="1" 
+                                GridPane.rowIndex="9" />
+
+                            <HBox spacing="10" alignment="bottom_right" GridPane.columnIndex="1"
+                                  GridPane.rowIndex="10">
+                                  <Button id="register" fx:id="registerButton" text="Register" onAction="#handleRegisterButton" 
+                                        disable="${firstnameField.text.empty || lastnameField.text.empty ||
+                                            addressField.text.empty || zipcodeField.text.empty || 
+                                            cityField.text.empty || usernameField.text.empty 
+                                            || passwordField.text.empty}" />
+                            </HBox>
+                        </GridPane>
                     </Tab>
                 </tabs>
             </TabPane>
         </HBox>
     </center>
-    
 </BorderPane>
