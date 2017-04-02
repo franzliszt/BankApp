@@ -59,10 +59,7 @@ public class MainViewController {
      */
     public void initialize() {
         db = new DatabaseTransaction();
-        window = new Windows(); 
-        tabPane.getSelectionModel().selectedIndexProperty().addListener((e, o, n) -> {
-            System.out.println("Changed to " + o);
-        });
+        window = new Windows();
         
         // Listener on tabs
         tabPane.getSelectionModel().selectedItemProperty().addListener((e, o, n) -> {
