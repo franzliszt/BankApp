@@ -5,6 +5,7 @@
  */
 package bank;
 
+import bank.model.utils.HibernateUtil;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +29,11 @@ public class Main extends Application {
         stage.setTitle("Bank Application");
         stage.setScene(scene);
         stage.show();
+    }
+    
+    @Override
+    public void stop() throws Exception {
+        HibernateUtil.getSessionFactory().close();
     }
     /**
      * @param args the command line arguments
