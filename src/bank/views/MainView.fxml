@@ -47,7 +47,7 @@
                             <PasswordField fx:id="passwordLogIn" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
                             <HBox spacing="10" alignment="bottom_right" GridPane.columnIndex="1"
                                     GridPane.rowIndex="3">
-                                <Button id="signInButton" text="Sign in" onAction="#handleSignInButton" 
+                                <Button id="signInButton" fx:id="logInButton" text="Sign in" onAction="#handleSignInButton" 
                                     disable="${ usernameLogIn.text.empty || passwordLogIn.text.empty }" />
                             </HBox>
                         </GridPane>

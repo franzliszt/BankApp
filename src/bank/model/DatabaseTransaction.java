@@ -6,6 +6,7 @@
 package bank.model;
 
 import bank.model.domains.Account;
+import bank.model.domains.Customer;
 import bank.model.domains.Payment;
 import bank.model.domains.Person;
 import bank.model.entities.City_E;
@@ -15,6 +16,7 @@ import bank.model.utils.HibernateUtil;
 import java.util.List;
 import java.util.stream.Stream;
 import org.hibernate.JDBCException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -98,6 +100,22 @@ public class DatabaseTransaction {
         List<Persons_E> list = session.createCriteria(Persons_E.class).list();
         session.close();
         return list;
+    }
+    
+    public Person checkUserCredentials(String username, String password) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        Person customer = null;
+        List<Persons_E> list = getAll();
+        for (Persons_E entity : list) {
+            if (entity.getUsername().equals(username) && 
+                    entity.getPassword().equals(password)) {
+                customer = new Customer();
+                customer.setId(entity.getId());
+                customer.setFirstname(entity.getFirstname());
+                customer.setLastname(entity.getLastname());
+            }
+        }
+        return customer;
     }
     
     public boolean registerAccount(Person customer, Account account) {
