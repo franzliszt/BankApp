@@ -12,6 +12,9 @@
 
 <BorderPane fx:id="root" id="borderpane" prefHeight="900.0" prefWidth="900.0" styleClass="mainFxmlClass" 
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="bank.controller.CustomerController">
+    <stylesheets>
+        <URL value="@/bank/views/graphics/customerview.css"/>
+    </stylesheets>
     <padding>
         <Insets top="15" right="12" left="15" bottom="12"/>
     </padding>

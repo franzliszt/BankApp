@@ -30,7 +30,7 @@
     <center>
         
         <HBox alignment="CENTER">
-            <TabPane fx:id="tabPane" maxWidth="-Infinity">
+            <TabPane fx:id="tabPane" prefWidth="700">
                 <tabs>
                     <Tab fx:id="logInTab" text="Log In" closable="false">
                         <!--
@@ -65,26 +65,31 @@
                             <Label id="firstNameLabel" text="First Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                             <TextField promptText="Your first name" fx:id="firstnameField" GridPane.columnIndex="1" 
                                 GridPane.rowIndex="1" />
-                            <Text fx:id="invalidFirstname" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                            <Text fx:id="invalidFirstname" GridPane.columnIndex="2" GridPane.rowIndex="1" 
+                                GridPane.columnSpan="2" />
 
                             <Label id="lastNameLabel" text="Last Name:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                             <TextField promptText="Your last name" fx:id="lastnameField" GridPane.columnIndex="1"
                                 GridPane.rowIndex="2" />
-                            <Text fx:id="invalidLastname" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                            <Text fx:id="invalidLastname" GridPane.columnIndex="2" GridPane.rowIndex="2" 
+                                GridPane.columnSpan="2" />
 
                             <Label id="addressLabel" text="Address:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
                             <TextField fx:id="addressField" promptText="Your address" GridPane.columnIndex="1"
                                 GridPane.rowIndex="3" />
-                            <Text fx:id="invalidAddress" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                            <Text fx:id="invalidAddress" GridPane.columnIndex="2" GridPane.rowIndex="3" 
+                                GridPane.columnSpan="2" />
 
                             <Label id="zipCodeLabel" text="Zip Code:" GridPane.columnIndex="0"
                                 GridPane.rowIndex="4" />
                             <TextField fx:id="zipcodeField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                            <Text fx:id="invalidZipcode" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                            <Text fx:id="invalidZipcode" GridPane.columnIndex="2" GridPane.rowIndex="4" 
+                                GridPane.columnSpan="2" />
 
                             <Label id="cityLabel" text="City:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
                             <TextField fx:id="cityField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                            <Text fx:id="invalidCity" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                            <Text fx:id="invalidCity" GridPane.columnIndex="2" GridPane.rowIndex="5" 
+                                GridPane.columnSpan="2" />
 
                             <Text id="credentials" text="Choose user name and password" GridPane.columnIndex="0"
                                 GridPane.rowIndex="7" GridPane.columnSpan="2" />
@@ -106,6 +111,8 @@
                                             cityField.text.empty || usernameField.text.empty 
                                             || passwordField.text.empty}" />
                             </HBox>
+                            <Text fx:id="registeredBefore" GridPane.columnIndex="0" GridPane.rowIndex="11"
+                                GridPane.columnSpan="2" />
                         </GridPane>
                     </Tab>
                 </tabs>

@@ -35,21 +35,25 @@ public class DatabaseTransaction {
         trx = null;
     }
     
-    public void registerCustomer(Person person) {
+    public String registerCustomer(Person person) {
+        String result = "";
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            trx = session.beginTransaction();
             
             City_E city = searchZip(person.getZip());
+            Persons_E foundPerson = searchPerson(person.getFirstname(), 
+                    person.getLastname());
+            
+            if (foundPerson != null && city != null)
+                result = "You are already a registered customer.";
+            session = HibernateUtil.getSessionFactory().openSession();
+            trx = session.beginTransaction();
             if (city == null) {
                 city = new City_E();
                 city.setZip(person.getZip());
                 city.setCity(person.getCity());
                 session.save(city);
             }
-// sjekk om kunden finnes, hvis ja rollback og informer viewt
-            Persons_E foundPerson = searchPerson(person.getFirstname(), 
-                    person.getLastname());//new Persons_E();
+            
             if (foundPerson == null) {
                 foundPerson = new Persons_E();
                 foundPerson.setFirstname(person.getFirstname());
@@ -65,8 +69,8 @@ public class DatabaseTransaction {
                 customer.setCustomerId(foundPerson.getId());
                 session.save(customer);
             }
-            trx.commit();
             
+            trx.commit();
         } catch (JDBCException e) {
             if (trx != null)
                 trx.rollback();
@@ -75,23 +79,32 @@ public class DatabaseTransaction {
             session.clear();
             session.close();
         }
+        return result;
     }
     
     private Persons_E searchPerson(String firstname, String lastname) {
-        List<Persons_E> list = session.createCriteria(Persons_E.class).list();
+        List<Persons_E> list = getAll();
+        session = HibernateUtil.getSessionFactory().openSession();
         for (Persons_E p : list) {
-            if (p.getFirstname().equals(firstname) && p.getLastname().equals(lastname))
+            if (p.getFirstname().equals(firstname) && p.getLastname().equals(lastname)) {
+                session.close();
                 return p;
+            }
         }
+        session.close();
         return null;
     }
     
     private City_E searchZip(String zip) {
+        session = HibernateUtil.getSessionFactory().openSession();
         List<City_E> list = session.createCriteria(City_E.class).list();
         for (City_E c : list) {
-            if (c.getZip().equals(zip))
+            if (c.getZip().equals(zip)) {
+                session.close();
                 return c;
+            }
         }
+        session.close();
         return null;
     }
     
@@ -103,9 +116,9 @@ public class DatabaseTransaction {
     }
     
     public Person checkUserCredentials(String username, String password) {
-        session = HibernateUtil.getSessionFactory().openSession();
         Person customer = null;
         List<Persons_E> list = getAll();
+        session = HibernateUtil.getSessionFactory().openSession();
         for (Persons_E entity : list) {
             if (entity.getUsername().equals(username) && 
                     entity.getPassword().equals(password)) {
@@ -115,7 +128,23 @@ public class DatabaseTransaction {
                 customer.setLastname(entity.getLastname());
             }
         }
+        session.close();
         return customer;
+    }
+    
+    public String findCity(String zip) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        List<City_E> list = session.createCriteria(City_E.class).list();
+        for (City_E c : list) {
+            if (c.getZip().equals(zip)) {
+                session.clear();
+                session.close();
+                return c.getCity();
+            }
+        }
+        session.clear();
+        session.close();
+        return "";
     }
     
     public boolean registerAccount(Person customer, Account account) {

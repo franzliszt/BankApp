@@ -9,9 +9,12 @@ package bank.controller;
 import bank.model.DatabaseTransaction;
 import bank.model.domains.Customer;
 import bank.model.domains.Person;
+import bank.util.Validation;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -45,6 +48,7 @@ public class MainViewController {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Button registerButton;
+    @FXML private Text registeredBefore;
     
     // For log in view
     @FXML private TextField usernameLogIn;
@@ -65,12 +69,64 @@ public class MainViewController {
         db = new DatabaseTransaction();
         window = new Windows();
         
-        // Listener on tabs
+        addListeners();
+        
+    }
+    
+    private void addListeners() {
         tabPane.getSelectionModel().selectedItemProperty().addListener((e, o, n) -> {
             if (n == logInTab)
                 clearLogInFields();
-            if (n == registerTab)
+            if (n == registerTab) {
                 clearRegisterFields();
+                registeredBefore.setText("");
+            } 
+        });
+        
+        zipcodeField.textProperty().addListener((observable, oldVal, newVal) -> {
+            cityField.setText(db.findCity(zipcodeField.getText()));
+        });
+        
+        firstnameField.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
+                Boolean oldVal, Boolean newVal) -> {
+            if (!registeredBefore.getText().equals(""))
+                registeredBefore.setText("");
+        });
+        
+        lastnameField.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
+                Boolean oldVal, Boolean newVal) -> {
+            if (!registeredBefore.getText().equals(""))
+                registeredBefore.setText("");
+        });
+        
+        addressField.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
+                Boolean oldVal, Boolean newVal) -> {
+            if (!registeredBefore.getText().equals(""))
+                registeredBefore.setText("");
+        });
+        
+        zipcodeField.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
+                Boolean oldVal, Boolean newVal) -> {
+            if (!registeredBefore.getText().equals(""))
+                registeredBefore.setText("");
+        });
+        
+        cityField.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
+                Boolean oldVal, Boolean newVal) -> {
+            if (!registeredBefore.getText().equals(""))
+                registeredBefore.setText("");
+        });
+        
+        usernameField.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
+                Boolean oldVal, Boolean newVal) -> {
+            if (!registeredBefore.getText().equals(""))
+                registeredBefore.setText("");
+        });
+        
+        passwordField.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
+                Boolean oldVal, Boolean newVal) -> {
+            if (!registeredBefore.getText().equals(""))
+                registeredBefore.setText("");
         });
     }
     
@@ -97,22 +153,21 @@ public class MainViewController {
     
     @FXML
     private void handleSignInButton() {
-        System.out.println("log in");
-        final String username = usernameLogIn.getText();
-        final String password = passwordLogIn.getText();
+        String username = usernameLogIn.getText();
+        String password = passwordLogIn.getText();
         
         Person customer = db.checkUserCredentials(username, password);
-        if (customer != null)
+        if (customer != null) {
             try {
                 window.openCustomer((Stage) logInButton.getScene().getWindow(), customer);
-        } catch (IOException ex) {
-            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     
     @FXML
     public void handleRegisterButton() {
-        // validere all input
         String inputFirstName = firstnameField.getText();
         String inputLastName = lastnameField.getText();
         String inputAddress = addressField.getText();
@@ -121,8 +176,22 @@ public class MainViewController {
         String inputUsername = usernameField.getText();
         String inputPassword = passwordField.getText();
         
-        db.registerCustomer(new Customer(inputFirstName, inputLastName, 
+        Validation v = new Validation(inputFirstName, inputLastName, inputAddress,
+            inputZipcode, inputCity);
+        invalidFirstname.setText(v.validateFirstname());
+        invalidLastname.setText(v.validateLastname());
+        invalidAddress.setText(v.validateAddress());
+        invalidZipcode.setText(v.validateZipcode());
+        cityField.setText(v.getCity());
+        
+        if (v.validateAll()) {
+            String result = db.registerCustomer(new Customer(inputFirstName, inputLastName, 
                 inputAddress, inputZipcode, inputCity, inputUsername, inputPassword));
-        tabPane.getSelectionModel().select(0);
+            if (result != null) {
+                registeredBefore.setText(result);
+                clearRegisterFields();
+            } else
+                tabPane.getSelectionModel().selectFirst();
+        }
     }
 }

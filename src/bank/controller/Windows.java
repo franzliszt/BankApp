@@ -19,7 +19,7 @@ import javafx.stage.Stage;
  */
 class Windows {
     
-    private static Person customer; // Kunden som er logget inn
+    private static Person customer;
     
     void openCustomer(Stage parent, Person customer) throws IOException {
         Windows.customer = customer;
