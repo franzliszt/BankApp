@@ -9,12 +9,11 @@ package bank.controller;
 import bank.model.DatabaseTransaction;
 import bank.model.domains.Customer;
 import bank.model.domains.Person;
-import bank.model.utils.HibernateUtil;
+import bank.model.utils.ViewHelper;
 import bank.util.Validation;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -61,97 +60,84 @@ public class MainViewController {
     @FXML private Tab logInTab;
     @FXML private Tab registerTab;
     
-    /**
-     * Initializes the controller class.
-     * @param url
-     * @param rb
-     */
+    
     public void initialize() {
         db = new DatabaseTransaction();
         db.findCity(null);
         window = new Windows();
-        
-        addListeners();
+        Listener l = new Listener();
         
     }
     
-    private void addListeners() {
-        tabPane.getSelectionModel().selectedItemProperty().addListener((e, o, n) -> {
-            if (n == logInTab)
-                clearLogInFields();
-            if (n == registerTab) {
-                clearRegisterFields();
-                registeredBefore.setText("");
-            } 
-        });
+    private class Listener {
         
-        zipcodeField.textProperty().addListener((observable, oldVal, newVal) -> {
-            cityField.setText(db.findCity(zipcodeField.getText()).toUpperCase());
-        });
+        public Listener() {
+            addListeners();
+        }
         
-        firstnameField.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
-                Boolean oldVal, Boolean newVal) -> {
-            if (!registeredBefore.getText().equals(""))
-                registeredBefore.setText("");
-        });
-        
-        lastnameField.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
-                Boolean oldVal, Boolean newVal) -> {
-            if (!registeredBefore.getText().equals(""))
-                registeredBefore.setText("");
-        });
-        
-        addressField.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
-                Boolean oldVal, Boolean newVal) -> {
-            if (!registeredBefore.getText().equals(""))
-                registeredBefore.setText("");
-        });
-        
-        zipcodeField.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
-                Boolean oldVal, Boolean newVal) -> {
-            if (!registeredBefore.getText().equals(""))
-                registeredBefore.setText("");
-        });
-        
-        cityField.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
-                Boolean oldVal, Boolean newVal) -> {
-            if (!registeredBefore.getText().equals(""))
-                registeredBefore.setText("");
-        });
-        
-        usernameField.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
-                Boolean oldVal, Boolean newVal) -> {
-            if (!registeredBefore.getText().equals(""))
-                registeredBefore.setText("");
-        });
-        
-        passwordField.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
-                Boolean oldVal, Boolean newVal) -> {
-            if (!registeredBefore.getText().equals(""))
-                registeredBefore.setText("");
-        });
-    }
-    
-    /**
-     * Clears the input fields in the log in tab.
-     */
-    private void clearLogInFields() {
-        usernameLogIn.clear();
-        passwordLogIn.clear();
-    }
+        private void addListeners() {
+            tabPane.getSelectionModel().selectedItemProperty().addListener((e, o, n) -> {
+                if (n == logInTab) {
+                    clearLogInFields();
+                }
+                if (n == registerTab) {
+                    clearRegisterFields();
+                    registeredBefore.setText("");
+                } 
+            });
+
+            zipcodeField.textProperty().addListener((observable, oldVal, newVal) -> {
+                cityField.setText(db.findCity(zipcodeField.getText()).toUpperCase());
+            });
+
+            firstnameField.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
+                    Boolean oldVal, Boolean newVal) -> {
+                if (!registeredBefore.getText().equals(""))
+                    registeredBefore.setText("");
+            });
+
+            lastnameField.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
+                    Boolean oldVal, Boolean newVal) -> {
+                if (!registeredBefore.getText().equals(""))
+                    registeredBefore.setText("");
+            });
+
+            addressField.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
+                    Boolean oldVal, Boolean newVal) -> {
+                if (!registeredBefore.getText().equals(""))
+                    registeredBefore.setText("");
+            });
+
+            zipcodeField.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
+                    Boolean oldVal, Boolean newVal) -> {
+                if (!registeredBefore.getText().equals(""))
+                    registeredBefore.setText("");
+            });
+
+            cityField.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
+                    Boolean oldVal, Boolean newVal) -> {
+                if (!registeredBefore.getText().equals(""))
+                    registeredBefore.setText("");
+            });
+
+            usernameField.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
+                    Boolean oldVal, Boolean newVal) -> {
+                if (!registeredBefore.getText().equals(""))
+                    registeredBefore.setText("");
+            });
+            
+            passwordField.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
+                    Boolean oldVal, Boolean newVal) -> {
+                if (!registeredBefore.getText().equals(""))
+                    registeredBefore.setText("");
+            });
+        }
+    } // private inner class
     
     /**
      * Clears the input fields in the register tab.
      */
-    private void clearRegisterFields() {
-        firstnameField.clear();
-        lastnameField.clear();
-        addressField.clear();
-        zipcodeField.clear();
-        cityField.clear();
-        usernameField.clear();
-        passwordField.clear();
-    }
+    
     
     @FXML
     private void handleSignInButton() {
@@ -196,5 +182,14 @@ public class MainViewController {
             } else
                 tabPane.getSelectionModel().selectFirst();
         }
+    }
+    
+    private void clearRegisterFields() {
+            ViewHelper.clear(firstnameField, lastnameField, addressField, 
+                                zipcodeField, cityField, usernameField, passwordField);
+    }
+
+    private void clearLogInFields() {
+            ViewHelper.clear(usernameLogIn, passwordLogIn);
     }
 }
