@@ -135,16 +135,16 @@ public class DatabaseTransaction {
     public String findCity(String zip) {
         session = HibernateUtil.getSessionFactory().openSession();
         List<City_E> list = session.createCriteria(City_E.class).list();
+        String city = "";
         for (City_E c : list) {
             if (c.getZip().equals(zip)) {
-                session.clear();
-                session.close();
-                return c.getCity();
+                city = c.getCity();
+                break;
             }
         }
         session.clear();
         session.close();
-        return "";
+        return city;
     }
     
     public boolean registerAccount(Person customer, Account account) {

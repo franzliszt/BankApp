@@ -9,6 +9,7 @@ package bank.controller;
 import bank.model.DatabaseTransaction;
 import bank.model.domains.Customer;
 import bank.model.domains.Person;
+import bank.model.utils.HibernateUtil;
 import bank.util.Validation;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -67,6 +68,7 @@ public class MainViewController {
      */
     public void initialize() {
         db = new DatabaseTransaction();
+        db.findCity(null);
         window = new Windows();
         
         addListeners();
@@ -84,7 +86,7 @@ public class MainViewController {
         });
         
         zipcodeField.textProperty().addListener((observable, oldVal, newVal) -> {
-            cityField.setText(db.findCity(zipcodeField.getText()));
+            cityField.setText(db.findCity(zipcodeField.getText()).toUpperCase());
         });
         
         firstnameField.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
@@ -159,6 +161,7 @@ public class MainViewController {
         Person customer = db.checkUserCredentials(username, password);
         if (customer != null) {
             try {
+                db = null;
                 window.openCustomer((Stage) logInButton.getScene().getWindow(), customer);
             } catch (IOException ex) {
                 Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
