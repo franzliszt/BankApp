@@ -134,10 +134,6 @@ public class MainViewController {
         }
     } // private inner class
     
-    /**
-     * Clears the input fields in the register tab.
-     */
-    
     
     @FXML
     private void handleSignInButton() {
