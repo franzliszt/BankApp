@@ -54,6 +54,7 @@ public class MainViewController {
     @FXML private TextField usernameLogIn;
     @FXML private PasswordField passwordLogIn;
     @FXML private Button logInButton;
+    @FXML private Text errorLogIn;
     
     // Tabs
     @FXML private TabPane tabPane;
@@ -131,6 +132,16 @@ public class MainViewController {
                 if (!registeredBefore.getText().equals(""))
                     registeredBefore.setText("");
             });
+            
+            usernameLogIn.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
+                    Boolean oldVal, Boolean newVal) -> {
+                errorLogIn.setText("");
+            });
+            
+            passwordLogIn.focusedProperty().addListener((ObservableValue<? extends Boolean> a, 
+                    Boolean oldVal, Boolean newVal) -> {
+                errorLogIn.setText("");
+            });
         }
     } // private inner class
     
@@ -139,16 +150,17 @@ public class MainViewController {
     private void handleSignInButton() {
         String username = usernameLogIn.getText();
         String password = passwordLogIn.getText();
-        
         Person customer = db.checkUserCredentials(username, password);
         if (customer != null) {
             try {
-                db = null;
                 window.openCustomer((Stage) logInButton.getScene().getWindow(), customer);
+                clearLogInFields();
+                clearRegisterFields();
             } catch (IOException ex) {
                 Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        } else
+            errorLogIn.setText("Not valide input.");
     }
     
     @FXML
@@ -186,6 +198,6 @@ public class MainViewController {
     }
 
     private void clearLogInFields() {
-            ViewHelper.clear(usernameLogIn, passwordLogIn);
+            ViewHelper.clear(usernameLogIn, passwordLogIn, errorLogIn);
     }
 }

@@ -21,7 +21,7 @@ class Windows {
     
     private static Person customer;
     
-    void openCustomer(Stage parent, Person customer) throws IOException {
+    public void openCustomer(Stage parent, Person customer) throws IOException {
         Windows.customer = customer;
         
         Stage customerStage = new Stage();

@@ -16,7 +16,6 @@ import bank.model.utils.HibernateUtil;
 import java.util.List;
 import java.util.stream.Stream;
 import org.hibernate.JDBCException;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 

@@ -72,7 +72,13 @@ public class Bank implements BankTransaction {
 
     @Override
     public boolean deposit(Person customer, Account toAccount, double amount) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (amount > 0) {
+            double newAmount = amount + toAccount.getCurrentAmount();
+            toAccount.setCurrentAmount(newAmount);
+            // lagre i databasen (oppdatere
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -88,6 +94,11 @@ public class Bank implements BankTransaction {
     @Override
     public boolean pay(Person customer, Account fromAccount, Account toAccount) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public boolean pay(Person customer, Account fromAccount, Account toAccount, double amount) {
+        return false;
     }
 
     @Override

@@ -22,6 +22,7 @@ public interface BankTransaction {
     boolean transfer(Person customer, Account fromAccount, Account toAccount, double amount);
     boolean pay(Person customer, Account fromAccount);
     boolean pay(Person customer, Account fromAccount, Account toAccount);
+    boolean pay(Person customer, Account fromAccount, Account toAccount, double amount);
     double withdraw(Person customer, double amount);
     boolean deleteAccount(Person customer, Account account);
     List<Payment> getPayments(Person customer, Account account);

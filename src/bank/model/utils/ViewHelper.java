@@ -7,6 +7,7 @@ package bank.model.utils;
 
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 /**
  *
@@ -26,9 +27,10 @@ public class ViewHelper {
         passwordField.clear();
     }
 
-    public static void clear(TextField usernameLogIn, PasswordField passwordLogIn) {
+    public static void clear(TextField usernameLogIn, PasswordField passwordLogIn, Text errorLogIn) {
         usernameLogIn.clear();
         passwordLogIn.clear();
+        errorLogIn.setText("");
     }
     
     
