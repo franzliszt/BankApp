@@ -160,7 +160,7 @@ public class MainViewController {
                 Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else
-            errorLogIn.setText("Not valide input.");
+            errorLogIn.setText("Not a valid input.");
     }
     
     @FXML

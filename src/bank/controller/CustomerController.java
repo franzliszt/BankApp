@@ -27,33 +27,17 @@ public class CustomerController {
     @FXML private Button newAccountBtn;
     @FXML private TabPane tabPane;
     @FXML private Text today;
+    @FXML private Text loggedInCustomer;
     
     
     public void initialize() {
         //tabPane.getTabs().add(new Tab("Tab 1"));
         DateFormat now = new SimpleDateFormat("dd.MM.yyyy");
         today.setText(now.format(new Date()));
-        
+        setCustomer(customer = Windows.getLoggedInPerson());
+        String name = customer.getFirstname() + " " + customer.getLastname();
+        loggedInCustomer.setText("Welcome " + name + " ");
     }
-    
-
-//    @FXML
-//    private void test(ActionEvent e) {
-//        Label label;
-//        FlowPane pane1;
-//        Scene scene1;
-//        Stage theStage;
-//        Stage newStage = new Stage();
-//        if (e.getSource() == payments) {
-//            pane1 = new FlowPane();
-//            pane1.getChildren().add(new Label("TeSt"));
-//            theStage = (Stage) payments.getScene().getWindow();
-//            newStage.setScene(new Scene(pane1, 200, 100));
-//            newStage.initModality(Modality.APPLICATION_MODAL);
-//            newStage.setTitle("New Stage");
-//            newStage.show();
-//        }
-//    }
     
     @FXML
     private void newAccount() {
